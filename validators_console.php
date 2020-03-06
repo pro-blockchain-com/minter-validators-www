@@ -9,8 +9,6 @@ include "z_wals.php";
 //$debug = 1;
 
 
-//print $color_txt."\n";
-//die;
 unset($t,$t2);
 
 unset($my);
@@ -39,7 +37,6 @@ unset($glob[color_set]);
 
 $a = $cache_dir."/last_block";
 
-//print $a."\n";
 $a = file_get_contents($a);
 $block = $a;
 
@@ -51,7 +48,6 @@ if($flag)continue;
 if($last_block<$block)
 $last_block = $block;
 
-//print "\033[0;37m =========================================================================================================================== \033[00m\n";
     $val = $last_block;
     $t = $val/120;
     $t2 = $t;
@@ -65,11 +61,9 @@ $round_wait = 120-$t4;
 
 print "\033c";
 
-#print "\n=================== last_block = \033[01;32m$last_block\033[00m round[$t3]:$t2/\033[38;95m$t4\033[00m [".date("Y-m-d H:i:s")."] ==========================================\n\n";
 $info_line = "\n=================== last_block = \033[01;32m$last_block\033[00m round[120*$t2]:$t3+\033[38;95m$t4\033[00m [".date("Y-m-d H:i:s")."] ==========================================\n\n";
 print $info_line;
 
-//print "\n=================== last_block = \033[01;32m$last_block\033[00m round[120*$t2]:$t3+\033[38;95m$t4\033[00m [".date("Y-m-d H:i:s")."] ==========================================\n\n";
 
 
 for($i=1;$i<25;$i++)
@@ -80,13 +74,9 @@ for($i=1;$i<25;$i++)
 $block_mas[$b] = $b;
     unset($file_mas);
 $b2 = view_number($b,8);
-//print $b."\n";
-//$b_all += $b;
 if($debug)print "=== $i = $b ================\n";
 $b2 = direr($b2);
-//$d =  __DIR__."/cache/$b2";
 $d = $cache_dir."/$b2";
-//$d =  "/www/default/scripts/validator_candidat/"."/cache/$b2";
 $d2 = dirname($d);
 
     $file_mas[block] = "$d.b";;
@@ -98,7 +88,6 @@ $d2 = dirname($d);
     $flag = 0;
     if(file_exists($file))$flag = 1;
 if($debug)print $file." $flag\n";
-//    $file = "$d/$i";
     if(!file_exists($file))
     $block_err[$b][$file] = $file;
 
@@ -110,7 +99,6 @@ if($debug)print $file." $flag\n";
     continue;
 
         $a = json_decode($a,1);
-//    print_r($a);
         switch($k)
         {
             case "block":
@@ -149,29 +137,21 @@ if($debug)print $file." $flag\n";
 }
 arsort($rating[candidates][pk]);
 
-//print_r($rating);die;
 
 
 //$
 $validator_mas = array_keys($out);
-//print_r($validator_mas);die;
-//print_r($out);die;
 krsort($block_mas);
 
 
 //$flag_mas
 reset($my);
-//foreach($my as $wal=>$name)
-//foreach($validator_mas as $wal)
 foreach($rating[candidates][pk] as $wal=>$rate)
 {
 unset($flag_mas);
 //    foreach($out[$wal] as $pk=>$v)
     {
 $v = $out[$wal];
-//print $wal."\n";
-//print_r($out[$wal]);die;
-//print_mas($v);
         reset($block_mas);
         $nn = 0;
         foreach($block_mas as $blk)
@@ -212,20 +192,9 @@ $v = $out[$wal];
 
 
         }
-/*
-    if($out2[$wal][unblock])
-    {
-	print "\033[38;41m";
-	$t = $out2[$wal][unblock];
-	$k = count($t);
-	print "UNBLOCK: $k (".implode(",",$t).")";
-	print "\033[00m\n";
-    }
-*/    
     }
 
 }
-//print_r($out2);
 
 $nn = 0;
 foreach($out2 as $pk=>$v)
@@ -260,18 +229,8 @@ $v["Wait for start"] = $round_wait;
     if($unblock && $v[block])					$color = get_color("recovery");
     if(!$unblock && $v[block])					$color = get_color("validator");
 
-//    if($unblock>=$wals[$my[$pk]][fail_count])
-//    print $wals[$my[$pk]][fail_cmd];
     $l[] = $nn;
 
-/*
-    $t = "my";
-    if($t=="my")
-    $t = get_color("my")." $t \033[00m";
-    else
-    $t = "";
-    $l[] = $t;
-*/
     $t = "";
 
     $is_my = $my[$pk];
@@ -281,7 +240,6 @@ $v["Wait for start"] = $round_wait;
 	$t2 .= "...";
 	$t2 .= substr($pk,strlen($pk)-7);
 	$t = $t2;
-//	$t = "unknown";
         $c =  get_color("unknown");
     }
     else
@@ -299,7 +257,6 @@ $v["Wait for start"] = $round_wait;
     $l[] = $color." $pk \033[00m";
 
     $t2 = $rating[candidates][pk][$pk];
-//print $t2."\n";
 $b_all += $t2;
     $t2 = view_number($t2,$rating_len," ");
 
@@ -341,12 +298,9 @@ $b_all += $t2;
 		fail_cmd($m);
 		}
 
-	    //print_r($tt);
-	    //    $val = $k3."$tt \033[38;41m $t2 \033[00m";
 	        $val = $k3."$unblock $t2";
 	    break;
 	    default:
-//	    $val = "$k3$v2 ";
 		$val = $v2;
 		if($val == 0)$c = "\033[2;91m";
 		if($val > 0)$c = "\033[1;36m";
@@ -362,22 +316,13 @@ $b_all += $t2;
     print implode("\t",$l)."\n";
 }
 
-//print "flag_mas\n";
-//print_r($flag_mas);
-//print "block_err\n";
-//print_r($block_err);
-//print $color_txt2."\n";;
 if($glob[color_set])
 {
 $t = implode(" ",$glob[color_set]);
 print "\nUsed color name: ". $t."\n";
 }
 print $info_line;
-//print "b_all = $b_all\n";
 sleep(1);
 }
-//$color_mas[critical_error] 	= "$color_mas[critical_error] 	= "\033[39;45m";
-
-//print_r($block_mas);
 
 ?>

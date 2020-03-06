@@ -4,7 +4,7 @@ function fail_cmd($mas)
 extract($mas,EXTR_OVERWRITE);
 //                $cmd = $wals[$my[$pk]][fail_cmd];
                 $t2 .= "\n".$cmd;
-                if(1)
+                if(0)
                 {
                 exec($cmd,$reg);
                 $t = implode("\n",$reg);
